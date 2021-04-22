@@ -1,24 +1,38 @@
 import {gql} from "@apollo/client";
 import { useState } from "react";
-import { useAddUserMutation } from "src/apollo/graphql";
+import { useAddUserMutation, AppDto } from "src/apollo/graphql";
+import { useForm } from "react-hook-form";
+
 
 const IndexPage = () => {
+  const { register, handleSubmit } = useForm<AppDto>({defaultValues: {name:"", iconUrl:""}});
   const [file, setFile] = useState<File>();
   const [updateUser] = useAddUserMutation();
   const handleChangeFile = (e: any) => {
     setFile(e.target.files[0]);
-    updateUser({ variables: {user: {name:"toki", iconUrl: "http://"}}});
   };
+  const handleClick = handleSubmit((data) => {
+    console.log(file);
+    console.log(data.name)
+    console.log(data.iconUrl)
+    updateUser({ variables: {user: {name:data.name, iconUrl: data.iconUrl}}});
+  })
   console.log(file)
   return (
     <>
     <div>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleChangeFile}
-            id="icon"
-          />
+      名前
+      <input {...register("name", { required: true })}/>
+      iconUrl
+      <input {...register("iconUrl", { required: true })}/>
+      写真
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleChangeFile}
+        id="icon"
+      />
+      <input type="submit" onClick={handleClick} />
     </div>
     </>
   )
