@@ -5,6 +5,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
+    "codegen": "graphql-codegen --config src/apollo/codegen.js",
     "type-check": "tsc"
   },
   "dependencies": {
