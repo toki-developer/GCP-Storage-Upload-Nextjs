@@ -1,6 +1,6 @@
 import {gql} from "@apollo/client";
 import { useState } from "react";
-import { useAddUserMutation, AppDto } from "src/apollo/graphql";
+import { useAddUserMutation, useUploadFileMutation, AppDto } from "src/apollo/graphql";
 import { useForm } from "react-hook-form";
 
 
@@ -8,16 +8,16 @@ const IndexPage = () => {
   const { register, handleSubmit } = useForm<AppDto>({defaultValues: {name:"", iconUrl:""}});
   const [file, setFile] = useState<File>();
   const [updateUser] = useAddUserMutation();
+  const [ uploadFile ] = useUploadFileMutation();
   const handleChangeFile = (e: any) => {
     setFile(e.target.files[0]);
   };
   const handleClick = handleSubmit((data) => {
-    console.log(file);
-    console.log(data.name)
-    console.log(data.iconUrl)
-    updateUser({ variables: {user: {name:data.name, iconUrl: data.iconUrl}}});
+    // updateUser({ variables: {user: {name:data.name, iconUrl: data.iconUrl, filename: "", mimetype: "", encoding: ""}}});
+    console.log(file)
+    const a = uploadFile({ variables: {file: file}})
+    console.log(a);
   })
-  console.log(file)
   return (
     <>
     <div>
@@ -48,4 +48,13 @@ gql`
       iconUrl
     }
   }
+  mutation uploadFile ($file: Upload!) {
+    uploadFile(file: $file)
+  }
 `
+
+// gql`
+// mutation uploadFile ($file: Upload!) {
+//   uploadFile(file: $file)
+// }
+// `
