@@ -13,7 +13,7 @@ const IndexPage = () => {
     setFile(e.target.files[0]);
   };
   const handleClick = handleSubmit((data) => {
-    // updateUser({ variables: {user: {name:data.name, iconUrl: data.iconUrl, filename: "", mimetype: "", encoding: ""}}});
+    // updateUser({ variables: {user: {name:data.name, iconUrl: data.iconUrl}}});
     console.log(file)
     const a = uploadFile({ variables: {file: file}})
     console.log(a);
@@ -21,10 +21,10 @@ const IndexPage = () => {
   return (
     <>
     <div>
-      名前
+      {/* 名前
       <input {...register("name", { required: true })}/>
       iconUrl
-      <input {...register("iconUrl", { required: true })}/>
+      <input {...register("iconUrl", { required: true })}/> */}
       写真
       <input
         type="file"
@@ -52,9 +52,3 @@ gql`
     uploadFile(file: $file)
   }
 `
-
-// gql`
-// mutation uploadFile ($file: Upload!) {
-//   uploadFile(file: $file)
-// }
-// `

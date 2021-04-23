@@ -19,9 +19,6 @@ export type Scalars = {
 export type AppDto = {
   name: Scalars['String'];
   iconUrl: Scalars['String'];
-  filename: Scalars['String'];
-  mimetype: Scalars['String'];
-  encoding: Scalars['String'];
 };
 
 export type AppModel = {
