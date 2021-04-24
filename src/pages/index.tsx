@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 
 const IndexPage = () => {
-  const { register, handleSubmit } = useForm({defaultValues: {name:"", iconUrl:""}});
+  const { handleSubmit } = useForm({defaultValues: {name:"", iconUrl:""}});
   const [file, setFile] = useState<File>();
   const handleChangeFile = (e: any) => {
     setFile(e.target.files[0]);
