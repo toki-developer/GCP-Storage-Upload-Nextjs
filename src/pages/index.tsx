@@ -12,13 +12,15 @@ const IndexPage = () => {
   const uploadImg = useCallback(async (file:File) => {
     const fileName = "imgfile"
     const res = await fetch(`/api/upload?file=${fileName}`);
-    const url = await res.json();
+    const { url, fields } = await res.json();
     const body = new FormData();
-    body.append('file', file as string | Blob);
+    Object.entries({ ...fields, file }).forEach(([key, value]) => {
+      body.append(key, value as string | Blob );
+    });
     const upload = await fetch(url, {method:"POST", body});
+
     if (upload.ok) {
       console.log('Uploaded successfully!');
-      return fileName;
     } else {
       console.error('Upload failed.');
     }
@@ -30,8 +32,6 @@ const IndexPage = () => {
       uploadImg(file)
     }
   })
-
-
   return (
     <>
     <div>
