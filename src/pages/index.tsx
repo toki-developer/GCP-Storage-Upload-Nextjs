@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 
 
@@ -9,9 +9,30 @@ const IndexPage = () => {
   const handleChangeFile = (e: any) => {
     setFile(e.target.files[0]);
   };
-  const handleClick = handleSubmit((data) => {
-    console.log(file)
+  const uploadImg = useCallback(async (file:File) => {
+    const fileName = "toki"
+    const res = await fetch(`/api/upload?file=${fileName}`);
+    const { url, fields } = await res.json();
+    console.log(res)
+    const body = new FormData();
+    body.append('file', file as string | Blob);
+    const upload = await fetch(url, {method:"POST", body});
+    if (upload.ok) {
+      console.log('Uploaded successfully!');
+      return fileName;
+    } else {
+      console.error('Upload failed.');
+    }
+  },[])
+
+
+  const handleClick =  handleSubmit ( async () => {
+    if(file) {
+      uploadImg(file)
+    }
   })
+
+
   return (
     <>
     <div>
