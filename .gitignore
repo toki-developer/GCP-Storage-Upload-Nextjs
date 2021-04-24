@@ -33,6 +33,5 @@ yarn-error.log*
 # vercel
 .vercel
 
-.env
 
 hello-world-project-311214-e4c21fdd4e1b.json

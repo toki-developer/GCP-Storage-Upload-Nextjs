@@ -10,10 +10,9 @@ const IndexPage = () => {
     setFile(e.target.files[0]);
   };
   const uploadImg = useCallback(async (file:File) => {
-    const fileName = "toki"
+    const fileName = "imgfile"
     const res = await fetch(`/api/upload?file=${fileName}`);
-    const { url, fields } = await res.json();
-    console.log(res)
+    const url = await res.json();
     const body = new FormData();
     body.append('file', file as string | Blob);
     const upload = await fetch(url, {method:"POST", body});
