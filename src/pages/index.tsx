@@ -10,7 +10,7 @@ const IndexPage = () => {
     setFile(e.target.files[0]);
   };
   const uploadImg = useCallback(async (file:File) => {
-    const fileName = "imgfile"
+    const fileName = "imgfile2"
     const res = await fetch(`/api/upload?file=${fileName}`);
     const { url, fields } = await res.json();
     const body = new FormData();
@@ -25,7 +25,6 @@ const IndexPage = () => {
       console.error('Upload failed.');
     }
   },[])
-
 
   const handleClick =  handleSubmit ( async () => {
     if(file) {
